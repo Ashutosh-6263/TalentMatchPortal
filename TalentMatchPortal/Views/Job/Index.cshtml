@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TalentMatchPortal.Models.Job>
+<div class="container mt-4">
+    <h3>Available Job Roles</h3>
+    <div class="row">
+        @foreach (var job in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@job.Title</h5>
+                        <p class="card-text text-muted">@job.Description.Substring(0, Math.Min(job.Description.Length, 50))...</p>
+                        <form asp-action="Apply" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="jobId" value="@job.Id" />
+                            <label class="small">Upload Resume (PDF):</label>
+                            <input type="file" name="resume" class="form-control mb-2" required />
+                            <button type="submit" class="btn btn-outline-primary btn-sm w-100">Apply Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

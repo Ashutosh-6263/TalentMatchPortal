@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TalentMatchPortal.Models.LeaveRequest>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">Apply for Leave</div>
+                <div class="card-body">
+                    <form asp-action="ApplyLeave" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Leave Type</label>
+                            <select name="LeaveType" class="form-select" required>
+                                <option value="">-- Select --</option>
+                                <option value="Sick Leave">Sick Leave</option>
+                                <option value="Casual Leave">Casual Leave</option>
+                                <option value="Earned Leave">Earned Leave</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">From Date</label>
+                            <input type="date" name="FromDate" class="form-control"
+                                   min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">To Date</label>
+                            <input type="date" name="ToDate" class="form-control"
+                                   min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reason</label>
+                            <textarea name="Reason" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h4>Your Leave History</h4>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Type</th>
+                        <th>Dates</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.LeaveType</td>
+                            <td>@item.FromDate.ToShortDateString() - @item.ToDate.ToShortDateString()</td>
+                            <td>
+                                <span class="badge @(item.Status == "Approved" ? "bg-success" : "bg-warning")">@item.Status</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

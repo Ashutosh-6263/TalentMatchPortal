@@ -1,0 +1,37 @@
+﻿@model IEnumerable<TalentMatchPortal.Models.JobApplication>
+<div class="container-fluid mt-4">
+    <h2>HR / Admin Dashboard</h2>
+    <table class="table table-hover border">
+        <thead class="table-dark">
+            <tr>
+                <th>Applicant Name</th>
+                <th>Applied For</th>
+                <th>Education</th>
+                <th>Year</th>
+                <th>Resume</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var app in Model)
+            {
+                <tr>
+                    <td>@app.User.FirstName @app.User.LastName</td>
+                    <td>@app.Job.Title</td>
+                    <td>@app.User.Education</td>
+                    <td>@app.User.PassOutYear</td>
+                    <td><a href="~/resumes/@app.ResumePath" target="_blank" class="btn btn-info btn-sm">View PDF</a></td>
+                    <td><span class="badge bg-secondary">@app.Status</span></td>
+                    <td>
+                        <form asp-action="Shortlist" method="post" class="d-flex">
+                            <input type="hidden" name="appId" value="@app.Id" />
+                            <input type="text" name="examLink" class="form-control form-control-sm me-1" placeholder="Paste Exam Link" required />
+                            <button type="submit" class="btn btn-warning btn-sm">Shortlist</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

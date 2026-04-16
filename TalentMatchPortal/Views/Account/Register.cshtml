@@ -1,0 +1,20 @@
+﻿@model TalentMatchPortal.Models.User
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border p-4 shadow-sm bg-light">
+            <h2 class="text-center">Create Account</h2>
+            <form asp-action="Register" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3"><input asp-for="FirstName" class="form-control" placeholder="First Name" required /></div>
+                    <div class="col-md-6 mb-3"><input asp-for="LastName" class="form-control" placeholder="Last Name" required /></div>
+                </div>
+                <div class="mb-3"><input asp-for="Email" type="email" class="form-control" placeholder="Email (Username)" required /></div>
+                <div class="mb-3"><input asp-for="MobileNumber" class="form-control" placeholder="Mobile Number" required /></div>
+                <div class="mb-3"><input asp-for="Education" class="form-control" placeholder="Education (e.g. B.Tech CS)" required /></div>
+                <div class="mb-3"><input asp-for="PassOutYear" type="number" class="form-control" placeholder="Pass Out Year" required /></div>
+                <div class="mb-3"><input asp-for="Password" type="password" class="form-control" placeholder="Password" required /></div>
+                <button type="submit" class="btn btn-success w-100">Register</button>
+            </form>
+        </div>
+    </div>
+</div>

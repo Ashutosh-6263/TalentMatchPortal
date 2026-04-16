@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TalentMatchPortal.Models.LeaveRequest>
+
+<div class="container mt-4">
+    <h3><i class="bi bi-calendar-check"></i> Employee Leave Requests</h3>
+    <hr />
+
+    <table class="table table-hover shadow-sm bg-white">
+        <thead class="table-dark">
+            <tr>
+                <th>Employee</th>
+                <th>Type</th>
+                <th>Duration</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><strong>@item.User?.FirstName</strong></td>
+                    <td><span class="badge border text-dark">@item.LeaveType</span></td>
+                    <td>@item.FromDate.ToShortDateString() to @item.ToDate.ToShortDateString()</td>
+                    <td>@item.Reason</td>
+                    <td><span class="badge @(item.Status == "Approved" ? "bg-success" : "bg-warning text-dark")">@item.Status</span></td>
+                    <td>
+                        @if (item.Status == "Pending")
+                        {
+                            <form asp-action="ApproveLeave" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button class="btn btn-sm btn-success">Approve</button>
+                            </form>
+                            <form asp-action="RejectLeave" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button class="btn btn-sm btn-outline-danger">Reject</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
